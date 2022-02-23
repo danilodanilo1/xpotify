@@ -9,7 +9,11 @@ import GlobalStyle from "./globalStyles";
 
 class App extends Component {
 
+ 
+
   componentDidMount() {
+    let token = process.env.REACT_APP_CLIENT_ID
+    console.log(9999999, process.env.development)
     let hashParams = {};
     let e,
       r = /([^&;=]+)=?([^&;]*)/g,
