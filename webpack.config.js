@@ -54,8 +54,7 @@ module.exports = {
       template: './src/index.html',
     }),
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify('development'),
-      'process.env.APP_VERSION': JSON.stringify(process.env.npm_package_version),
+      'process.env.NODE_ENV': JSON.stringify('development')
   })
   ],
 };

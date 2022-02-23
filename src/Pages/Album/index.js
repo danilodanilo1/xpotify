@@ -59,15 +59,11 @@ export default function Album({ setScreen }) {
     );
   };
 
-  const handleback = () => {
-    window.location.reload();
-  };
-
   return (
     <Wrapper>
       <Content>
         <S.SeparateButton>
-          <S.Button onClick={() => setScreen(1)}>  {"< voltar"}</S.Button>
+          <S.Button onClick={() => setScreen(1)}> {"< voltar"}</S.Button>
         </S.SeparateButton>
         <S.Section>
           <Card />
