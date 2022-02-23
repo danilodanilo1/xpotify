@@ -1,149 +1,73 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Aside from "../../Components/Aside";
 import Wrapper from "../../Components/Wrapper";
 import Content from "../../Components/Content";
-import axios from "axios";
 import * as S from "./styles";
+import moment from "moment"
+import { useDispatch, useSelector } from "react-redux";
 
+export default function Album({ setScreen }) {
+  
 
-export default function Album() {
-  const mock=[
-    {
-      num: "1",
-      nome:"Nome da Faixa",
-      duracao:"3:34"
-    },
-    {
-      num: "2",
-      nome:"Nome da Faixa",
-      duracao:"3:34"
-    },
-    {
-      num: "3",
-      nome:"Nome da Faixa",
-      duracao:"3:34"
-    },
-    {
-      num: "4",
-      nome:"Nome da Faixa",
-      duracao:"3:34"
-    },
-    {
-      num: "5",
-      nome:"Nome da Faixa",
-      duracao:"3:34"
-    },
-    {
-      num: "6",
-      nome:"Nome da Faixa",
-      duracao:"3:34"
-    },
-    {
-      num: "7",
-      nome:"Nome da Faixa",
-      duracao:"3:34"
-    },
-    {
-      num: "8",
-      nome:"Nome da Faixa",
-      duracao:"3:34"
-    },
-    {
-      num: "9",
-      nome:"Nome da Faixa",
-      duracao:"3:34"
-    },
-    {
-      num: "10",
-      nome:"Nome da Faixa",
-      duracao:"3:34"
-    },
-    {
-      num: "11",
-      nome:"Nome da Faixa",
-      duracao:"3:34"
-    },
-    {
-      num: "9",
-      nome:"Nome da Faixa",
-      duracao:"3:34"
-    },
-    {
-      num: "10",
-      nome:"Nome da Faixa",
-      duracao:"3:34"
-    },
-    {
-      num: "11",
-      nome:"Nome da Faixa",
-      duracao:"3:34"
-    },
-    
-  ]
-  const [token, setToken] = useState()
-  const navigate = useNavigate()
+  const nameAlbum = useSelector((state) => state.albumsReducer.selected?.name);
+  const nameArtist = useSelector((state) => state.albumsReducer.selected?.artists);
+  const imgAlbum = useSelector((state) => state.albumsReducer.selected);
+  const tracks = useSelector((state) => state.albumsReducer.selected)
+  let images = imgAlbum?.images?.map((img) => img.url);
+  images?.splice(2)
+  let trackAlbum = tracks?.tracks?.items;
+
   const Card = () => {
     return (
       <S.CardStyle>
-        <div></div>
+        <div>
+          <img src={images?.splice(1, 2)} alt="imageAlbum" />
+        </div>
         <S.ArtistData>
           <p>
-            <strong>nome do album aqdasdasdswui bem grandao</strong>
+            <strong>{nameAlbum}</strong>
           </p>
-          <p>nome do album aqui bem grandao</p>
+          <p>{nameArtist?.map((item) => item.name)}</p>
         </S.ArtistData>
       </S.CardStyle>
     );
   };
 
-  const Line = ({item, id}) => {
+  const Line = ({ item, id }) => {
+    
     return (
       <S.Line key={id}>
         <S.Separate>
-          <div>{item.num}</div>
-          <div><strong>{item.nome}</strong></div>
+          <div>{item.track_number}</div>
+          <div>
+            <strong>{item.name}</strong>
+          </div>
         </S.Separate>
         <div>
-          <div>{item.duracao}</div>
+          <div>{moment.utc(item.duration_ms).format('mm:ss')}</div>
         </div>
       </S.Line>
     );
   };
+
   const List = () => {
     return (
       <S.ListStyle>
-        {mock.map((item, i) => (
-          <Line id={i} item={item} />
+        {trackAlbum?.map((item, i) => (
+          <Line key={i} item={item} />
         ))}
       </S.ListStyle>
     );
   };
 
+  const handleback = () => {
+    window.location.reload();
+  };
 
-  // useEffect(()=>{
-  //   const initialState = () => {
-  //     axios('https://account.spotify.com/api/token', {
-  //       headers:{
-  //         'Content-type' : 'application/x-www.form-urlencoded',
-  //         'Authorization' : 'Basic' + btoa(spotify.ClientId + ':' + spotify.ClientSecret)
-  //       },
-  //       data:'grant_type-client_credentials',
-  //       method:'POST'
-  //     })
-  //     .then(tokenResponse => {
-  //       console.log(tokenResponse.data.access_token)
-  //       setToken(tokenResponse.data.access_token)
-  //     })
-  //   }
-  //   initialState()
-  // },[])
   return (
     <Wrapper>
-      <Aside />
       <Content>
         <S.SeparateButton>
-          <S.Button onClick={()=> navigate('/')}> voltar </S.Button>
+          <S.Button onClick={() => setScreen(1)}>  {"< voltar"}</S.Button>
         </S.SeparateButton>
         <S.Section>
           <Card />

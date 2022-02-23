@@ -14,11 +14,14 @@ export const CardStyle = styled.div`
   flex-direction: column;
   text-align: center;
   > div {
-    border: 1px solid #000;
     width: 250px;
     height: 250px;
     margin-bottom: 10px;
     background-color: #999999;
+    > img {
+      width: 250px;
+      height: 250px;
+    }
   }
   > p {
     font-size: 14px;
@@ -28,6 +31,19 @@ export const CardStyle = styled.div`
 `;
 export const Button = styled.button`
   display: flex;
+  width: 70px;
+  background: transparent;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  margin-bottom: 10px;
+  &:hover{
+        transform: scale(1.1);
+        transition: all 500ms;
+      }
 `;
 export const ArtistData = styled.section`
   max-width: 250px;
@@ -36,7 +52,6 @@ export const ArtistData = styled.section`
 export const ListStyle = styled.div`
   display: flex;
   width: 100%;
-  border: 1px solid black;
   justify-content: space-between;
   margin-left: 30px;
   min-height: 600px;
@@ -61,5 +76,5 @@ export const SeparateButton = styled.div`
   display: flex;
   justify-content: flex-start;
   width: 100%;
-  margin: 30px 0;
+  margin-bottom: 5px;
 `;
