@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { setToken } from "./Actions/tokenActions";
-
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Home from "./Pages/Home";
 import GlobalStyle from "./globalStyles";
 import { useDispatch } from "react-redux";
 export default function App(){
   const dispatch = useDispatch()
   useEffect(()=>{
-    let token = process.env.NODE_ENV.REACT_APP_CLIENT_ID
-    console.log(9999999, token)
+    // let token = process.env.NODE_ENV.REACT_APP_CLIENT_ID
     let hashParams = {};
     let e,
       r = /([^&;=]+)=?([^&;]*)/g,

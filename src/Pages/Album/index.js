@@ -2,25 +2,31 @@ import React, { useEffect, useState } from "react";
 import Wrapper from "../../Components/Wrapper";
 import Content from "../../Components/Content";
 import * as S from "./styles";
-import moment from "moment"
-import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import { Audio } from "react-loader-spinner";
+import { useSelector } from "react-redux";
 
 export default function Album({ setScreen }) {
-  
-
   const nameAlbum = useSelector((state) => state.albumsReducer.selected?.name);
-  const nameArtist = useSelector((state) => state.albumsReducer.selected?.artists);
+  const nameArtist = useSelector(
+    (state) => state.albumsReducer.selected?.artists
+  );
   const imgAlbum = useSelector((state) => state.albumsReducer.selected);
-  const tracks = useSelector((state) => state.albumsReducer.selected)
+  const tracks = useSelector((state) => state.albumsReducer.selected);
+  const loader = useSelector((state) => state.albumsReducer.fetchAlbumsPending);
   let images = imgAlbum?.images?.map((img) => img.url);
-  images?.splice(2)
+  images?.splice(2);
   let trackAlbum = tracks?.tracks?.items;
 
   const Card = () => {
     return (
       <S.CardStyle>
         <div>
-          <img src={images?.splice(1, 2)} alt="imageAlbum" />
+          {loader ? (
+            <Audio height="100" width="100" color="grey" ariaLabel="loading" />
+          ) : (
+            <img src={images?.splice(1, 2)} alt="imageAlbum" />
+          )}
         </div>
         <S.ArtistData>
           <p>
@@ -33,7 +39,6 @@ export default function Album({ setScreen }) {
   };
 
   const Line = ({ item, id }) => {
-    
     return (
       <S.Line key={id}>
         <S.Separate>
@@ -43,7 +48,7 @@ export default function Album({ setScreen }) {
           </div>
         </S.Separate>
         <div>
-          <div>{moment.utc(item.duration_ms).format('mm:ss')}</div>
+          <div>{moment.utc(item.duration_ms).format("mm:ss")}</div>
         </div>
       </S.Line>
     );
@@ -67,7 +72,11 @@ export default function Album({ setScreen }) {
         </S.SeparateButton>
         <S.Section>
           <Card />
-          <List />
+          {loader ? (
+            <Audio height="100" width="100" color="grey" ariaLabel="loading" />
+          ) : (
+            <List />
+          )}
         </S.Section>
       </Content>
     </Wrapper>
